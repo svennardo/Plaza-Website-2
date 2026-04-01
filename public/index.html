@@ -302,22 +302,45 @@
 
     .hero-scroll {
       position: absolute;
-      bottom: 3rem; right: 3rem;
+      bottom: 2.8rem;
+      left: 50%;
+      transform: translateX(-50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: .4rem;
-      color: rgba(245,240,232,.35);
-      font-size: .6rem;
-      letter-spacing: .2em;
+      gap: .7rem;
+      color: rgba(245,240,232,.6);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .25em;
       text-transform: uppercase;
       opacity: 0;
       animation: fadeUp .7s 1.3s forwards;
     }
+    .scroll-mouse {
+      width: 26px; height: 42px;
+      border: 1.5px solid rgba(245,240,232,.45);
+      border-radius: 13px;
+      display: flex;
+      justify-content: center;
+      padding-top: 7px;
+    }
+    .scroll-mouse::before {
+      content: '';
+      width: 3px; height: 8px;
+      background: var(--accent);
+      border-radius: 2px;
+      animation: scrollDot 1.6s ease-in-out infinite;
+    }
     .scroll-line {
-      width: 1px; height: 56px;
+      width: 1.5px; height: 32px;
       background: linear-gradient(to bottom, var(--accent), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
+      animation: scrollPulse 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollDot {
+      0%   { transform: translateY(0);    opacity: 1; }
+      75%  { transform: translateY(11px); opacity: 0; }
+      100% { transform: translateY(0);    opacity: 0; }
     }
 
     /* ── SHARED LAYOUT ──────────────────────────────────────── */
@@ -1027,6 +1050,7 @@
       </div>
     </div>
     <div class="hero-scroll">
+      <div class="scroll-mouse"></div>
       <div class="scroll-line"></div>
       <span>Scroll</span>
     </div>
