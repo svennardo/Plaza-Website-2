@@ -15,7 +15,7 @@ env/
 .env
 .env.*
 
-**assets**
+**videos**
 
 .pytest_cache/
 .mypy_cache/
