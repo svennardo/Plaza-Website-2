@@ -1,0 +1,1438 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plaza e.V. — Kultur, Kunst & Skate in Magdeburg</title>
+  <meta name="description" content="Plaza e.V. ist ein gemeinnütziger Verein in Magdeburg für Kultur, Kunst, Skateboarding und Jugendförderung.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:       #0a0a0a;
+      --white:       #f5f0e8;
+      --accent:      #F2A93B;
+      --accent-dark: #c8841c;
+      --mid:         #141414;
+      --mid2:        #1c1c1c;
+      --border:      rgba(245,240,232,0.07);
+      --fh: 'Syne', sans-serif;
+      --fb: 'Inter', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--fb);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; }
+
+    /* ── NAV ────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      padding: 1.4rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      /* needed for .nav-eyebrow absolute centering */
+      position: fixed;
+      transition: padding .4s, background .4s, border-color .4s;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(10,10,10,.94);
+      backdrop-filter: blur(14px);
+      padding: 1rem 2.5rem;
+      border-color: var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--fh);
+      font-size: 1.45rem;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-eyebrow {
+      position: absolute;
+      left: 25%;
+      transform: translateX(-50%);
+      font-size: .62rem;
+      font-weight: 500;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.35);
+      color: var(--accent);
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: rgba(245,240,232,.65);
+      text-decoration: none;
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-cta {
+      background: var(--accent) !important;
+      color: var(--black) !important;
+      padding: .5rem 1.3rem !important;
+      font-weight: 700 !important;
+    }
+    .nav-cta:hover { background: var(--white) !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      width: 24px; height: 1.5px;
+      background: var(--white);
+      transition: all .3s;
+    }
+
+    /* mobile overlay */
+    .mob-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,.98);
+      z-index: 199;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.2rem;
+    }
+    .mob-nav.open { display: flex; }
+    .mob-nav a {
+      font-family: var(--fh);
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .mob-nav a:hover { color: var(--accent); }
+    .mob-close {
+      position: absolute;
+      top: 1.4rem; right: 1.4rem;
+      background: none; border: none;
+      color: var(--white);
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
+    #hero {
+      height: 100svh;
+      min-height: 600px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('assets/images/main/IMG_7520-23.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.06);
+      transition: transform 10s cubic-bezier(.2,0,.2,1);
+    }
+    .hero-bg.loaded { transform: scale(1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(10,10,10,.75) 0%, rgba(10,10,10,0) 60%),
+        linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,.3) 40%, rgba(10,10,10,0) 70%);
+    }
+
+    .hero-content {
+      position: relative;
+      padding: 0 3rem 7rem;
+      max-width: 1440px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .eyebrow-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      padding-top: .2rem;
+    }
+
+    .eyebrow {
+      font-size: .7rem;
+      font-weight: 500;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp .7s .3s forwards;
+      /* keep clear of the fixed nav (~70px) + comfort gap */
+      padding-top: 5rem;
+    }
+
+    .hero-title {
+      font-family: var(--fh);
+      font-size: clamp(5.5rem, 18vw, 18rem);
+      font-weight: 800;
+      line-height: .88;
+      letter-spacing: -.04em;
+      color: var(--white);
+      display: flex;
+      align-items: baseline;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp .8s .5s forwards;
+      will-change: transform;
+    }
+
+    .hero-char {
+      display: inline-block;
+      will-change: transform;
+      position: relative;
+      /* The float animation runs on an inner pseudo layer;
+         we translate the whole element via CSS vars for scroll/mouse */
+      translate: var(--mx, 0px) var(--my, 0px);
+      animation: charFloat var(--dur, 4s) ease-in-out var(--del, 0s) infinite alternate;
+      transition: translate .08s linear;
+    }
+
+    .hero-title .dot {
+      color: var(--accent);
+      display: inline-block;
+      will-change: transform;
+      animation: dotPulse 2.8s ease-in-out infinite;
+    }
+
+    @keyframes charFloat {
+      from { transform: translateY(0px)     rotate(var(--rot-from, 0deg)); }
+      to   { transform: translateY(var(--lift, -14px)) rotate(var(--rot-to, 0deg)); }
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1)    translateY(0); }
+      50%       { transform: scale(1.18) translateY(-8px); }
+    }
+
+    .hero-sub {
+      font-size: clamp(.95rem, 1.8vw, 1.25rem);
+      font-weight: 300;
+      color: rgba(245,240,232,.72);
+      max-width: 480px;
+      margin-top: 1.8rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp .7s .75s forwards;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2.8rem;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp .7s .95s forwards;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: .9rem 2rem;
+      text-decoration: none;
+      font-family: var(--fh);
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: all .22s;
+      cursor: pointer;
+      border: none;
+      border-radius: 0;
+    }
+    .btn-primary { background: var(--accent); color: var(--black); }
+    .btn-primary:hover { background: var(--white); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--white); border: 1px solid rgba(245,240,232,.35); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 3rem; right: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .4rem;
+      color: rgba(245,240,232,.35);
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp .7s 1.3s forwards;
+    }
+    .scroll-line {
+      width: 1px; height: 56px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── SHARED LAYOUT ──────────────────────────────────────── */
+    section { padding: 9rem 2.5rem; }
+    .container { max-width: 1440px; margin: 0 auto; }
+
+    .sec-label {
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .9rem;
+    }
+    .sec-label::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── VIDEO ──────────────────────────────────────────────── */
+    #video-section {
+      background: var(--mid);
+      padding: 7rem 2.5rem;
+    }
+
+    .video-h {
+      font-family: var(--fh);
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 2.8rem;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      background: #000;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .video-wrap video {
+      width: 100%;
+      display: block;
+      max-height: 80vh;
+      object-fit: cover;
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,.35);
+      transition: background .3s;
+    }
+    .video-overlay.playing { background: transparent; }
+    .video-overlay.playing:hover { background: rgba(0,0,0,.15); }
+
+    .play-btn {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--black);
+      transition: transform .2s, opacity .3s;
+      opacity: 1;
+    }
+    .play-btn svg { width: 36px; height: 36px; margin-left: 4px; }
+    .video-overlay.playing .play-btn { opacity: 0; pointer-events: none; }
+    .video-overlay.playing:hover .play-btn { opacity: .7; }
+    .play-btn:hover { transform: scale(1.1); }
+
+    .video-mute {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 1.2rem;
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: rgba(10,10,10,.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      cursor: pointer;
+      transition: background .2s;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    .video-mute svg { width: 20px; height: 20px; }
+    .video-mute:hover { background: rgba(242,169,59,.8); color: var(--black); }
+    .video-wrap:hover .video-mute,
+    .video-mute.visible { opacity: 1; pointer-events: all; }
+
+    /* ── ABOUT ──────────────────────────────────────────────── */
+    #about { background: var(--black); }
+
+    .about-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7rem;
+      align-items: center;
+    }
+
+    .about-h {
+      font-family: var(--fh);
+      font-size: clamp(2.4rem, 5vw, 5.2rem);
+      font-weight: 800;
+      line-height: 1.02;
+      margin-bottom: 2rem;
+    }
+
+    .about-p {
+      color: rgba(245,240,232,.65);
+      font-size: 1.05rem;
+      line-height: 1.85;
+      margin-bottom: 1.4rem;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: 3rem;
+    }
+
+    .pillar {
+      padding: 1.4rem 1.6rem;
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      transition: background .2s;
+    }
+    .pillar:hover { background: rgba(242,169,59,.04); }
+
+    .pillar h4 {
+      font-family: var(--fh);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .45rem;
+    }
+    .pillar p {
+      font-size: .84rem;
+      color: rgba(245,240,232,.55);
+      line-height: 1.55;
+    }
+
+    .about-visuals {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .7rem;
+    }
+    .about-visuals img {
+      width: 100%;
+      object-fit: cover;
+    }
+    .about-img-wide {
+      grid-column: 1 / -1;
+      height: 300px;
+    }
+    .about-img-sq { height: 190px; }
+
+    /* ── STATS BAR ──────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--accent);
+      padding: 3rem 2.5rem;
+    }
+    .stats-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-family: var(--fh);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(10,10,10,.65);
+      margin-top: .4rem;
+    }
+
+    /* ── GALLERY ────────────────────────────────────────────── */
+    #gallery {
+      background: var(--mid);
+      padding: 7rem 2.5rem;
+    }
+
+    .gallery-head {
+      max-width: 1440px;
+      margin: 0 auto 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .gallery-h {
+      font-family: var(--fh);
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    .gallery-note {
+      font-size: .78rem;
+      color: rgba(245,240,232,.4);
+      letter-spacing: .06em;
+    }
+
+    .gallery-grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      columns: 4;
+      column-gap: .7rem;
+    }
+
+    .g-item {
+      break-inside: avoid;
+      margin-bottom: .7rem;
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .g-item img {
+      width: 100%;
+      transition: transform .55s cubic-bezier(.2,0,.2,1);
+    }
+
+    .g-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(242,169,59,0);
+      transition: background .3s;
+    }
+
+    .g-item:hover img { transform: scale(1.06); }
+    .g-item:hover::after { background: rgba(242,169,59,.08); }
+
+    /* ── TEAM ───────────────────────────────────────────────── */
+    #team { background: var(--black); }
+
+    .team-intro {
+      max-width: 560px;
+      margin-bottom: 4rem;
+    }
+
+    .team-h {
+      font-family: var(--fh);
+      font-size: clamp(2rem, 4vw, 4.2rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+
+    .team-sub {
+      color: rgba(245,240,232,.55);
+      font-size: 1rem;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .t-card {
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: border-color .3s, transform .3s;
+    }
+    .t-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .t-avatar {
+      height: 200px;
+      background: var(--mid2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--fh);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -.03em;
+      transition: background .3s;
+    }
+    .t-card:hover .t-avatar { background: rgba(242,169,59,.1); }
+
+    .t-card--more { border-style: dashed; border-color: rgba(245,240,232,.15); }
+    .t-card--more:hover { border-color: var(--accent); border-style: dashed; }
+    .t-avatar--more {
+      font-size: 2.2rem !important;
+      color: rgba(245,240,232,.3) !important;
+      background: transparent !important;
+      letter-spacing: -.02em;
+    }
+    .t-card--more:hover .t-avatar--more { color: var(--accent) !important; }
+
+    .t-info { padding: 1.2rem 1.3rem; }
+    .t-name {
+      font-family: var(--fh);
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: .3rem;
+    }
+    .t-role {
+      font-size: .7rem;
+      color: var(--accent);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* ── JOIN ───────────────────────────────────────────────── */
+    #join {
+      background: var(--mid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #join::before {
+      content: 'JOIN';
+      position: absolute;
+      font-family: var(--fh);
+      font-size: 32vw;
+      font-weight: 800;
+      color: rgba(255,255,255,.025);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .join-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 7rem;
+      align-items: start;
+    }
+
+    .join-h {
+      font-family: var(--fh);
+      font-size: clamp(2.2rem, 4.5vw, 5rem);
+      font-weight: 800;
+      line-height: .97;
+      margin-bottom: 1.6rem;
+    }
+
+    .join-desc {
+      color: rgba(245,240,232,.58);
+      line-height: 1.85;
+      font-size: 1rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .join-note-box {
+      padding: 1.4rem 1.6rem;
+      border-left: 3px solid var(--accent);
+      background: rgba(242,169,59,.05);
+    }
+    .join-note-box p {
+      font-size: .82rem;
+      color: rgba(245,240,232,.55);
+      line-height: 1.75;
+    }
+
+    .gform-wrap iframe {
+      width: 100%;
+      min-height: 820px;
+      display: block;
+    }
+
+    /* ── FORMS ──────────────────────────────────────────────── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    .form-group { margin-bottom: 1.2rem; }
+
+    .form-group label {
+      display: block;
+      font-size: .68rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,.45);
+      margin-bottom: .5rem;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(245,240,232,.09);
+      color: var(--white);
+      padding: .85rem 1rem;
+      font-family: var(--fb);
+      font-size: .95rem;
+      font-weight: 300;
+      transition: border-color .2s, background .2s;
+      outline: none;
+      border-radius: 0;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: rgba(245,240,232,.2);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      background: rgba(242,169,59,.04);
+    }
+
+    .form-group textarea { height: 130px; resize: vertical; }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1) opacity(.4);
+      cursor: pointer;
+    }
+
+    .form-footnote {
+      font-size: .72rem;
+      color: rgba(245,240,232,.3);
+      line-height: 1.65;
+      margin-top: .8rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 1.1rem;
+      background: var(--accent);
+      color: var(--black);
+      font-family: var(--fh);
+      font-size: .95rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: none;
+      border-radius: 0;
+      transition: all .22s;
+      margin-top: .5rem;
+    }
+    .btn-submit:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* ── CONTACT ────────────────────────────────────────────── */
+    #contact { background: var(--black); }
+
+    .contact-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 7rem;
+      align-items: start;
+    }
+
+    .contact-h {
+      font-family: var(--fh);
+      font-size: clamp(2.2rem, 4vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 3rem;
+    }
+
+    .contact-items { display: flex; flex-direction: column; gap: 2.2rem; }
+
+    .c-item h4 {
+      font-size: .68rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .55rem;
+    }
+    .c-item p, .c-item a {
+      color: rgba(245,240,232,.65);
+      font-size: 1rem;
+      line-height: 1.75;
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .c-item a:hover { color: var(--accent); }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.5rem;
+      background: var(--black);
+    }
+    .footer-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: var(--fh);
+      font-size: 1rem;
+      font-weight: 800;
+      color: rgba(245,240,232,.25);
+    }
+    .footer-logo span { color: rgba(242,169,59,.5); }
+    .footer-copy {
+      font-size: .72rem;
+      color: rgba(245,240,232,.2);
+    }
+
+    /* ── LIGHTBOX ───────────────────────────────────────────── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.95);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 90vh;
+      object-fit: contain;
+    }
+    .lb-close {
+      position: absolute;
+      top: 1.4rem; right: 1.4rem;
+      color: var(--white);
+      font-size: 2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      line-height: 1;
+      opacity: .5;
+      transition: opacity .2s;
+    }
+    .lb-close:hover { opacity: 1; }
+    .lb-prev, .lb-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--white);
+      font-size: 2.5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      opacity: .4;
+      transition: opacity .2s;
+      padding: 1rem;
+    }
+    .lb-prev:hover, .lb-next:hover { opacity: 1; }
+    .lb-prev { left: 1rem; }
+    .lb-next { right: 1rem; }
+
+    /* ── REVEAL ─────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity .75s ease, transform .75s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: .1s; }
+    .rd2 { transition-delay: .2s; }
+    .rd3 { transition-delay: .3s; }
+    .rd4 { transition-delay: .4s; }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: .3; }
+      50%       { opacity: 1; }
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .gallery-grid { columns: 3; }
+      .about-wrap { grid-template-columns: 1fr; gap: 3.5rem; }
+      .join-wrap  { grid-template-columns: 1fr; gap: 3.5rem; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 3.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.4rem; }
+      .nav-links { display: none; }
+      .nav-eyebrow { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 5.5rem 1.4rem; }
+      .hero-content { padding: 0 1.4rem 5rem; }
+      .hero-scroll { display: none; }
+      .gallery-grid { columns: 2; }
+      .pillars { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .about-img-wide { height: 220px; }
+      .about-img-sq   { height: 150px; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .stats-inner { gap: 2.5rem; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-grid { columns: 1; }
+      .hero-actions { flex-direction: column; }
+      .team-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────────── -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">Plaza<span>.</span></a>
+    <span class="nav-eyebrow">Magdeburg &mdash; Gegründet 2021</span>
+    <ul class="nav-links">
+      <li><a href="#about">Über uns</a></li>
+      <li><a href="#gallery">Galerie</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#contact">Kontakt</a></li>
+      <li><a href="#join" class="nav-cta">Mitglied werden</a></li>
+    </ul>
+    <div class="hamburger" onclick="openNav()" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <div class="mob-nav" id="mobNav">
+    <button class="mob-close" onclick="closeNav()" aria-label="Menü schließen">×</button>
+    <a href="#about"   onclick="closeNav()">Über uns</a>
+    <a href="#gallery" onclick="closeNav()">Galerie</a>
+    <a href="#team"    onclick="closeNav()">Team</a>
+    <a href="#contact" onclick="closeNav()">Kontakt</a>
+    <a href="#join"    onclick="closeNav()" style="color:var(--accent)">Mitglied werden</a>
+  </div>
+
+  <!-- ── HERO ─────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title" id="heroTitle">
+        <span class="hero-char" style="--dur:3.7s;--del:0s;  --lift:-18px;--rot-from:-.4deg;--rot-to:.3deg">P</span>
+        <span class="hero-char" style="--dur:4.2s;--del:.3s; --lift:-10px;--rot-from:.2deg;--rot-to:-.5deg">L</span>
+        <span class="hero-char" style="--dur:3.5s;--del:.55s;--lift:-22px;--rot-from:-.3deg;--rot-to:.6deg">A</span>
+        <span class="hero-char" style="--dur:4.6s;--del:.15s;--lift:-8px; --rot-from:.5deg;--rot-to:-.2deg">Z</span>
+        <span class="hero-char" style="--dur:3.9s;--del:.4s; --lift:-16px;--rot-from:-.6deg;--rot-to:.4deg">A</span>
+        <span class="dot">.</span>
+      </h1>
+      <p class="hero-sub">Kultur, Kunst & Skateboarding — eine Gemeinschaft für alle, die etwas bewegen wollen.</p>
+      <div class="hero-actions">
+        <a href="#join"  class="btn btn-primary">Mitglied werden</a>
+        <a href="#about" class="btn btn-outline">Mehr erfahren</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ── VIDEO ───────────────────────────────────────────────── -->
+  <section id="video-section">
+    <div class="container">
+      <div class="sec-label reveal">Go Skateboarding Day 2023</div>
+      <h2 class="video-h reveal rd1">Auf der Straße.<br>In der Szene.</h2>
+      <div class="video-wrap reveal rd2">
+        <video
+          id="mainVideo"
+          src="assets/videos/plaza-gsday.mp4"
+          playsinline
+          loop
+          preload="auto"
+        ></video>
+        <div class="video-overlay" id="videoOverlay" onclick="toggleVideo()">
+          <div class="play-btn" id="playBtn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+        <div class="video-mute" id="muteBtn" onclick="toggleMute()" title="Ton an/aus">
+          <svg id="iconSound" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+          <svg id="iconMute" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ────────────────────────────────────────────────── -->
+  <section id="about">
+    <div class="container">
+      <div class="about-wrap">
+
+        <div>
+          <div class="sec-label reveal">Über uns</div>
+          <h2 class="about-h reveal rd1">Wir sind<br>Plaza e.V.</h2>
+          <p class="about-p reveal rd2">
+            Plaza e.V. ist ein gemeinnütziger Verein in Magdeburg. Wir schaffen Räume für (Sub-)Kultur, Kunst und Sport — offen für alle, die etwas bewegen wollen.
+          </p>
+          <p class="about-p reveal rd2">
+            Als Plattform für die regionale Szene verbinden wir Skateboarding, Graffiti, Musik und Jugendförderung zu einem lebendigen Gemeinschaftsprojekt.
+          </p>
+          <div class="pillars">
+            <div class="pillar reveal rd1">
+              <h4>Kultur</h4>
+              <p>Plattform für (über-)regionale Subkulturszene</p>
+            </div>
+            <div class="pillar reveal rd2">
+              <h4>Kunst</h4>
+              <p>Forum für Rollkunst, Graffiti und Musik</p>
+            </div>
+            <div class="pillar reveal rd3">
+              <h4>Sport</h4>
+              <p>Skateboarding Workshops & Contests</p>
+            </div>
+            <div class="pillar reveal rd4">
+              <h4>Jugend</h4>
+              <p>Integration, Diversität & Jugendhilfe</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-visuals reveal rd2">
+          <img class="about-img-wide" src="assets/images/who_we_are/Plaza_GiovannaVeronicaGahrns_120622_209.jpg" alt="Plaza Community" loading="lazy">
+          <img class="about-img-sq"   src="assets/images/who_we_are/Plaza_GiovannaVeronicaGahrns_120622_4.jpg"   alt="Skate"          loading="lazy">
+          <img class="about-img-sq"   src="assets/images/who_we_are/IMG_7867-3.jpg"                              alt="Plaza Crew"     loading="lazy">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STATS BAR ─────────────────────────────────────────────── -->
+  <div class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat reveal">
+        <div class="stat-num">2021</div>
+        <div class="stat-label">Gegründet</div>
+      </div>
+      <div class="stat reveal rd2">
+        <div class="stat-num">138</div>
+        <div class="stat-label">Mitglieder</div>
+      </div>
+      <div class="stat reveal rd1">
+        <div class="stat-num">7</div>
+        <div class="stat-label">Gründungsmitglieder</div>
+      </div>
+      <div class="stat reveal rd3">
+        <div class="stat-num">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:1em;height:1em;vertical-align:-.1em"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        </div>
+        <div class="stat-label">Magdeburg</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── GALLERY ───────────────────────────────────────────────── -->
+  <section id="gallery">
+    <div class="gallery-head">
+      <div>
+        <div class="sec-label reveal">Galerie</div>
+        <h2 class="gallery-h reveal rd1">Momente,<br>die bleiben.</h2>
+      </div>
+      <span class="gallery-note reveal rd1">Klick für Vollbild</span>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- ── TEAM ─────────────────────────────────────────────────── -->
+  <section id="team">
+    <div class="container">
+      <div class="sec-label reveal">Das Team</div>
+      <div class="team-intro">
+        <h2 class="team-h reveal rd1">Die Menschen<br>hinter Plaza.</h2>
+        <p class="team-sub reveal rd2">Gegründet von einem Kreis leidenschaftlicher Menschen aus Magdeburg, die gemeinsam etwas aufbauen wollen.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="t-card reveal rd1">
+          <div class="t-avatar">S</div>
+          <div class="t-info">
+            <div class="t-name">Sven</div>
+            <div class="t-role">Vorsitzender</div>
+          </div>
+        </div>
+        <div class="t-card reveal rd2">
+          <div class="t-avatar">F</div>
+          <div class="t-info">
+            <div class="t-name">Fabi</div>
+            <div class="t-role">Stellv. Vorsitzender</div>
+          </div>
+        </div>
+        <div class="t-card reveal rd3">
+          <div class="t-avatar">C</div>
+          <div class="t-info">
+            <div class="t-name">Cole</div>
+            <div class="t-role">Schatzmeister</div>
+          </div>
+        </div>
+        <div class="t-card reveal rd4">
+          <div class="t-avatar">K</div>
+          <div class="t-info">
+            <div class="t-name">Kono</div>
+            <div class="t-role">Schriftführer</div>
+          </div>
+        </div>
+        <div class="t-card reveal rd1">
+          <div class="t-avatar">F</div>
+          <div class="t-info">
+            <div class="t-name">Faxe</div>
+            <div class="t-role">Vorstand</div>
+          </div>
+        </div>
+        <div class="t-card reveal rd2">
+          <div class="t-avatar">J</div>
+          <div class="t-info">
+            <div class="t-name">Jonas</div>
+            <div class="t-role">Gründungsmitglied</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── JOIN ─────────────────────────────────────────────────── -->
+  <section id="join">
+    <div class="container">
+      <div class="join-wrap">
+
+        <div>
+          <div class="sec-label reveal">Mitmachen</div>
+          <h2 class="join-h reveal rd1">Werde<br>Teil von<br>Plaza.</h2>
+          <p class="join-desc reveal rd2">
+            Mitglied werden ist unkompliziert und vollständig kostenlos. Wir freuen uns über alle, die unsere Werte teilen und aktiv mitgestalten möchten.
+          </p>
+          <div class="join-note-box reveal rd3">
+            <p>Kein Mitgliedsbeitrag. Für Personen unter 18 Jahren ist die Unterschrift eines Erziehungsberechtigten erforderlich. Bei Fragen: <strong style="color:rgba(245,240,232,.7)">plaza@posteo.de</strong></p>
+          </div>
+        </div>
+
+        <div class="gform-wrap reveal rd2">
+          <iframe
+            src="https://docs.google.com/forms/d/1s3_3KFeZgLCXJA57WB0YFqwtlonFJrUzSdcdvrjwmiw/viewform?embedded=true"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="Plaza e.V. Mitgliedsantrag"
+          >Lädt…</iframe>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ───────────────────────────────────────────────── -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-wrap">
+
+        <div>
+          <div class="sec-label reveal">Kontakt</div>
+          <h2 class="contact-h reveal rd1">Schreib<br>uns.</h2>
+          <div class="contact-items">
+            <div class="c-item reveal rd2">
+              <h4>Adresse</h4>
+              <p>Plaza e.V.<br>Annastraße 27<br>39108 Magdeburg</p>
+            </div>
+            <div class="c-item reveal rd3">
+              <h4>E-Mail</h4>
+              <a href="mailto:plaza@posteo.de">plaza@posteo.de</a>
+            </div>
+            <div class="c-item reveal rd4">
+              <h4>Vereinsregistrierung</h4>
+              <p>Amtsgericht Stendal<br>Gegründet 26. Mai 2021</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="reveal rd2">
+          <form id="contactForm" action="https://formspree.io/f/xzdkvabk" method="POST">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="c-name">Name *</label>
+                <input type="text" id="c-name" name="Name" required placeholder="Dein Name">
+              </div>
+              <div class="form-group">
+                <label for="c-email">E-Mail *</label>
+                <input type="email" id="c-email" name="E-Mail" required placeholder="deine@mail.de">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="c-subj">Betreff</label>
+              <input type="text" id="c-subj" name="Betreff" placeholder="Worum geht es?">
+            </div>
+            <div class="form-group">
+              <label for="c-msg">Nachricht *</label>
+              <textarea id="c-msg" name="Nachricht" required placeholder="Deine Nachricht..." style="height:160px"></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Nachricht senden &rarr;</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">Plaza<span>.</span>e.V.</div>
+      <p class="footer-copy">&copy; 2026 Plaza e.V., Magdeburg &mdash; Alle Rechte vorbehalten</p>
+    </div>
+  </footer>
+
+  <!-- ── LIGHTBOX ──────────────────────────────────────────────── -->
+  <div class="lightbox" id="lightbox">
+    <button class="lb-close" onclick="lbClose()" aria-label="Schließen">×</button>
+    <button class="lb-prev"  onclick="lbStep(-1)" aria-label="Zurück">&#8249;</button>
+    <img id="lbImg" src="" alt="Gallery image">
+    <button class="lb-next"  onclick="lbStep(1)"  aria-label="Weiter">&#8250;</button>
+  </div>
+
+  <script>
+    /* ── nav ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () =>
+      navbar.classList.toggle('scrolled', scrollY > 50)
+    );
+    function openNav()  { document.getElementById('mobNav').classList.add('open'); }
+    function closeNav() { document.getElementById('mobNav').classList.remove('open'); }
+
+    /* ── hero bg pan-in ── */
+    setTimeout(() => document.getElementById('heroBg').classList.add('loaded'), 80);
+
+    /* ── hero title: scroll parallax per letter ── */
+    const chars = document.querySelectorAll('.hero-char');
+    const SCROLL_SPEEDS = [-0.12, 0.09, -0.18, 0.07, -0.14]; // px per scroll-px, alternating
+
+    let mouseX = 0, mouseY = 0;
+
+    function applyCharTransforms() {
+      const sy = window.scrollY;
+      chars.forEach((c, i) => {
+        c.style.setProperty('--mx', `${mouseX * MOUSE_DEPTHS[i]}px`);
+        c.style.setProperty('--my', `${mouseY * MOUSE_DEPTHS[i] + sy * SCROLL_SPEEDS[i]}px`);
+      });
+    }
+
+    window.addEventListener('scroll', applyCharTransforms, { passive: true });
+
+    /* ── hero title: mouse parallax ── */
+    const heroEl = document.getElementById('hero');
+    const MOUSE_DEPTHS = [0.022, -0.014, 0.032, -0.018, 0.026];
+
+    heroEl.addEventListener('mousemove', e => {
+      const rect = heroEl.getBoundingClientRect();
+      mouseX = e.clientX - rect.left - rect.width  / 2;
+      mouseY = e.clientY - rect.top  - rect.height / 2;
+      applyCharTransforms();
+    });
+
+    heroEl.addEventListener('mouseleave', () => {
+      mouseX = 0; mouseY = 0;
+      applyCharTransforms();
+    });
+
+    /* ── gallery ── */
+    const photos = [
+      'assets/images/gallery/IMG_6653-8.jpg',
+      'assets/images/gallery/IMG_6787-29.jpg',
+      'assets/images/gallery/IMG_6848-10.jpg',
+      'assets/images/gallery/IMG_6989-11.jpg',
+      'assets/images/gallery/IMG_7128-13.jpg',
+      'assets/images/gallery/IMG_7209-5.jpg',
+      'assets/images/gallery/IMG_7240-1.jpg',
+      'assets/images/gallery/IMG_7330-6.jpg',
+      'assets/images/gallery/Plaza_GiovannaVeronicaGahrns_120622_169.jpg',
+      'assets/images/gallery/IMG_7550-21.jpg',
+      'assets/images/gallery/IMG_7856-2.jpg',
+      'assets/images/gallery/Plaza_GiovannaVeronicaGahrns_120622_192.jpg',
+      'assets/images/gallery/Plaza_GiovannaVeronicaGahrns_120622_251.jpg',
+      'assets/images/gallery/Plaza_GiovannaVeronicaGahrns_120622_53.jpg',
+      'assets/images/gallery/Plaza_GiovannaVeronicaGahrns_120622_58.jpg',
+    ].sort(() => Math.random() - 0.5);
+
+    const grid = document.getElementById('galleryGrid');
+    photos.forEach((src, i) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'g-item';
+      wrap.onclick = () => lbOpen(i);
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = `Plaza ${i + 1}`;
+      img.loading = 'lazy';
+      wrap.appendChild(img);
+      grid.appendChild(wrap);
+    });
+
+    /* ── lightbox ── */
+    let lbIndex = 0;
+    function lbOpen(i) {
+      lbIndex = i;
+      document.getElementById('lbImg').src = photos[i];
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function lbClose() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + photos.length) % photos.length;
+      document.getElementById('lbImg').src = photos[lbIndex];
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape')      lbClose();
+      if (e.key === 'ArrowRight')  lbStep(1);
+      if (e.key === 'ArrowLeft')   lbStep(-1);
+    });
+
+    /* ── scroll reveal ── */
+    const ro = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+    /* ── video ── */
+    const vid     = document.getElementById('mainVideo');
+    const overlay = document.getElementById('videoOverlay');
+    const muteBtn = document.getElementById('muteBtn');
+    const iconSound = document.getElementById('iconSound');
+    const iconMute  = document.getElementById('iconMute');
+
+    function updateMuteIcon() {
+      iconSound.style.display = vid.muted ? 'none'  : 'block';
+      iconMute.style.display  = vid.muted ? 'block' : 'none';
+    }
+
+    function toggleVideo() {
+      if (vid.paused) {
+        vid.play();
+        overlay.classList.add('playing');
+        muteBtn.classList.add('visible');
+      } else {
+        vid.pause();
+        overlay.classList.remove('playing');
+      }
+    }
+
+    function toggleMute(e) {
+      if (e) e.stopPropagation();
+      vid.muted = !vid.muted;
+      updateMuteIcon();
+    }
+
+    /* autoplay with sound when section scrolls into view */
+    const vidObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          vid.muted = false;
+          updateMuteIcon();
+          vid.play().then(() => {
+            overlay.classList.add('playing');
+            muteBtn.classList.add('visible');
+          }).catch(() => {
+            /* browser blocked unmuted autoplay — fall back to muted */
+            vid.muted = true;
+            updateMuteIcon();
+            vid.play().then(() => {
+              overlay.classList.add('playing');
+              muteBtn.classList.add('visible');
+            });
+          });
+          vidObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.4 });
+    vidObserver.observe(document.getElementById('video-section'));
+
+    updateMuteIcon();
+  </script>
+</body>
+</html>
