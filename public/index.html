@@ -6,8 +6,9 @@
   <title>Plaza e.V.</title>
   <meta name="description" content="Plaza e.V. ist ein gemeinnütziger Verein in Magdeburg für Kultur, Kunst, Skateboarding und Jugendförderung.">
 
-  <link rel="icon" type="image/png" href="assets/icons/favicon.png">
-  <link rel="apple-touch-icon" href="assets/icons/favicon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/favicon.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/favicon.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -112,6 +113,15 @@
       font-weight: 700 !important;
     }
     .nav-cta:hover { background: var(--white) !important; }
+
+    .nav-ig {
+      display: flex;
+      align-items: center;
+      color: rgba(245,240,232,.55);
+      transition: color .2s;
+    }
+    .nav-ig:hover { color: var(--white); }
+    .nav-ig svg { width: 18px; height: 18px; }
 
     .hamburger {
       display: none;
@@ -419,7 +429,7 @@
     }
     .play-btn svg { width: 36px; height: 36px; margin-left: 4px; }
     .video-overlay.playing .play-btn { opacity: 0; pointer-events: none; }
-    .video-overlay.playing:hover .play-btn { opacity: .7; }
+    .play-btn.hide { opacity: 0 !important; pointer-events: none; }
     .play-btn:hover { transform: scale(1.1); }
 
     .video-mute {
@@ -897,6 +907,18 @@
       font-size: .72rem;
       color: rgba(245,240,232,.2);
     }
+    .footer-ig {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      color: rgba(245,240,232,.3);
+      text-decoration: none;
+      font-size: .72rem;
+      letter-spacing: .06em;
+      transition: color .2s;
+    }
+    .footer-ig:hover { color: rgba(245,240,232,.75); }
+    .footer-ig svg { width: 15px; height: 15px; flex-shrink: 0; }
 
     /* ── LIGHTBOX ───────────────────────────────────────────── */
     .lightbox {
@@ -1014,6 +1036,9 @@
       <li><a href="#team">Team</a></li>
       <li><a href="#contact">Kontakt</a></li>
       <li><a href="#join" class="nav-cta">Mitglied werden</a></li>
+      <li><a href="https://www.instagram.com/plaza.ev/" target="_blank" rel="noopener" class="nav-ig" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </a></li>
     </ul>
     <div class="hamburger" onclick="openNav()" aria-label="Menü öffnen">
       <span></span><span></span><span></span>
@@ -1028,6 +1053,10 @@
     <a href="#team"          onclick="closeNav()">Team</a>
     <a href="#contact" onclick="closeNav()">Kontakt</a>
     <a href="#join"    onclick="closeNav()" style="color:var(--accent)">Mitglied werden</a>
+    <a href="https://www.instagram.com/plaza.ev/" target="_blank" rel="noopener" onclick="closeNav()" style="display:inline-flex;align-items:center;gap:.6rem">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+      Instagram
+    </a>
   </div>
 
   <!-- ── HERO ─────────────────────────────────────────────────── -->
@@ -1045,8 +1074,9 @@
       </h1>
       <p class="hero-sub">Kultur, Kunst & Skateboarding — eine Gemeinschaft für alle, die etwas bewegen wollen.</p>
       <div class="hero-actions">
-        <a href="#join"  class="btn btn-primary">Mitglied werden</a>
-        <a href="#about" class="btn btn-outline">Mehr erfahren</a>
+        <a href="#join"          class="btn btn-primary">Kostenlos Mitglied werden</a>
+        <a href="#video-section" class="btn btn-outline">Video</a>
+        <a href="#about"         class="btn btn-outline">Mehr erfahren</a>
       </div>
     </div>
     <div class="hero-scroll">
@@ -1275,6 +1305,13 @@
               <h4>E-Mail</h4>
               <a href="mailto:plaza@posteo.de">plaza@posteo.de</a>
             </div>
+            <div class="c-item reveal rd3">
+              <h4>Instagram</h4>
+              <a href="https://www.instagram.com/plaza.ev/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                @plaza.ev
+              </a>
+            </div>
             <div class="c-item reveal rd4">
               <h4>Vereinsregistrierung</h4>
               <p>Amtsgericht Stendal<br>Gegründet 26. Mai 2021</p>
@@ -1315,6 +1352,10 @@
     <div class="footer-inner">
       <div class="footer-logo">PLAZA<span>.</span>EV</div>
       <p class="footer-copy">&copy; 2026 Plaza e.V., Magdeburg &mdash; Alle Rechte vorbehalten</p>
+      <a href="https://www.instagram.com/plaza.ev/" target="_blank" rel="noopener" class="footer-ig" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @plaza.ev
+      </a>
     </div>
   </footer>
 
@@ -1442,14 +1483,24 @@
       iconMute.style.display  = vid.muted ? 'block' : 'none';
     }
 
+    let playBtnTimer;
+    function scheduleHidePlayBtn() {
+      clearTimeout(playBtnTimer);
+      playBtn.classList.remove('hide');
+      playBtnTimer = setTimeout(() => playBtn.classList.add('hide'), 2000);
+    }
+
     function toggleVideo() {
       if (vid.paused) {
         vid.play();
         overlay.classList.add('playing');
         muteBtn.classList.add('visible');
+        scheduleHidePlayBtn();
       } else {
         vid.pause();
         overlay.classList.remove('playing');
+        clearTimeout(playBtnTimer);
+        playBtn.classList.remove('hide');
       }
     }
 
@@ -1468,6 +1519,7 @@
           vid.play().then(() => {
             overlay.classList.add('playing');
             muteBtn.classList.add('visible');
+            scheduleHidePlayBtn();
           }).catch(() => {
             /* browser blocked unmuted autoplay — fall back to muted */
             vid.muted = true;
@@ -1475,6 +1527,7 @@
             vid.play().then(() => {
               overlay.classList.add('playing');
               muteBtn.classList.add('visible');
+              scheduleHidePlayBtn();
             });
           });
           vidObserver.disconnect();
