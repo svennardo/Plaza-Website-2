@@ -633,6 +633,18 @@
     }
     .t-card:hover .t-avatar { background: rgba(242,169,59,.1); }
 
+    .t-avatar--photo {
+      padding: 0;
+      background: var(--mid2);
+    }
+    .t-avatar--photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .t-card:hover .t-avatar--photo { background: var(--mid2); }
+
     .t-card--more { border-style: dashed; border-color: rgba(245,240,232,.15); }
     .t-card--more:hover { border-color: var(--accent); border-style: dashed; }
     .t-avatar--more {
@@ -1132,7 +1144,9 @@
 
       <div class="team-grid">
         <div class="t-card reveal rd1">
-          <div class="t-avatar">S</div>
+          <div class="t-avatar t-avatar--photo">
+            <img src="assets/images/team/sven/485EF36F-F215-4C6F-9DBD-55F9B3FF8AFC_1_201_a.jpeg" alt="Sven">
+          </div>
           <div class="t-info">
             <div class="t-name">Sven</div>
             <div class="t-role">Vorsitzender</div>
