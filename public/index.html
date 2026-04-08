@@ -795,6 +795,29 @@
       line-height: 1.75;
     }
 
+    .satzung-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: .6rem;
+      margin-top: 1.6rem;
+      padding: .65rem 1.2rem;
+      border: 1px solid rgba(245,240,232,.15);
+      border-radius: 6px;
+      text-decoration: none;
+      color: rgba(245,240,232,.55);
+      font-size: .78rem;
+      font-weight: 500;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .satzung-dl:hover {
+      border-color: rgba(245,240,232,.4);
+      color: var(--white);
+      background: rgba(245,240,232,.04);
+    }
+    .satzung-dl svg { width: 15px; height: 15px; flex-shrink: 0; }
+
     .gform-wrap iframe {
       width: 100%;
       min-height: 820px;
@@ -1327,7 +1350,9 @@
           </div>
         </div>
         <div class="t-card reveal rd2">
-          <div class="t-avatar">J</div>
+          <div class="t-avatar t-avatar--photo">
+            <img src="assets/images/team/jonas/photo_2026-04-08 18.44.33.jpeg" alt="Jonas">
+          </div>
           <div class="t-info">
             <div class="t-name">Jonas</div>
             <div class="t-role">Gründungsmitglied</div>
@@ -1351,6 +1376,10 @@
           <div class="join-note-box reveal rd3">
             <p>Kein Mitgliedsbeitrag. Für Personen unter 18 Jahren ist die Unterschrift eines Erziehungsberechtigten erforderlich. Bei Fragen: <strong style="color:rgba(245,240,232,.7)">plaza@posteo.de</strong></p>
           </div>
+          <a class="satzung-dl reveal rd4" href="assets/files/Satzung.pdf" download>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Vereinssatzung (PDF)
+          </a>
         </div>
 
         <div class="gform-wrap reveal rd2">
