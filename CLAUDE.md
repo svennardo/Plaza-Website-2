@@ -29,17 +29,31 @@ requirements.txt        ← Runtime dependencies (currently empty)
 
 ## Images
 
-Place the 32 skate event photos in `public/assets/images/` named:
-`plaza-01.jpg` through `plaza-32.jpg`
+Photos live in `public/assets/images/`, organized in subfolders:
 
-The hero background uses `plaza-01.jpg`. The about section uses `plaza-03.jpg`, `plaza-05.jpg`, `plaza-13.jpg`. All 32 appear in the gallery.
+- `gallery/` — all gallery photos (referenced by the `photos` array in the inline JS of `index.html`)
+- `main/` — hero / main media
+- `who_we_are/` — about section
+- `team/` — one subfolder per team member (`cole`, `fabi`, `faxe`, `jonas`, `kono`, `sven`)
+
+The gallery `photos` array is shuffled on every load (`.sort(() => Math.random() - 0.5)`) and run through `encodeURI` so filenames with spaces/parentheses resolve correctly. Each photo shows a per-photographer Instagram credit overlay: files containing `giovanna` → `@joe.vna`, all others → `@moritz.photogrphy`. When adding new gallery images, add their path to that array.
+
+**Keep images web-sized.** Gallery photos must be downscaled to max 1920 px on the long edge (quality ~82), which keeps each file well under ~1 MB. Full-resolution camera originals (10–18 MB / 18 MP) make the page appear to "not load" — the browser stalls decoding them and the dev server queues the huge transfers. Resize with Pillow before committing, e.g.:
+
+```python
+from PIL import Image, ImageOps
+im = ImageOps.exif_transpose(Image.open(f)).convert("RGB")
+w, h = im.size; s = 1920 / max(w, h)
+if s < 1: im = im.resize((round(w*s), round(h*s)), Image.LANCZOS)
+im.save(f, "JPEG", quality=82, optimize=True, progressive=True)
+```
 
 ## Website sections
 
 1. **Hero** — full-viewport with action photo background, animated entrance
 2. **About** — mission, 4 pillars (Kultur / Kunst / Sport / Jugend)
 3. **Stats bar** — accent-colored strip with key numbers
-4. **Gallery** — masonry grid, 32 photos, lightbox with keyboard navigation
+4. **Gallery** — masonry grid, randomized photos with per-photographer Instagram credit, lightbox with keyboard navigation
 5. **Team** — 7 founding members (from Satzung)
 6. **Join** — membership form (posts to plaza@posteo.de via mailto)
 7. **Contact** — address + contact form (posts to plaza@posteo.de via mailto)

@@ -1,7 +1,7 @@
 import http.server
-import socketserver
 import os
 import webbrowser
+from http.server import ThreadingHTTPServer
 
 PORT = 8080
 PUBLIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "public")
@@ -16,7 +16,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
 
 def main() -> None:
-    with socketserver.TCPServer(("", PORT), Handler) as httpd:
+    # ThreadingHTTPServer serves requests concurrently, so many image
+    # requests don't queue up serially behind one another.
+    with ThreadingHTTPServer(("", PORT), Handler) as httpd:
         url = f"http://localhost:{PORT}"
         print(f"\n  Plaza e.V. Website")
         print(f"  Running at {url}\n")
