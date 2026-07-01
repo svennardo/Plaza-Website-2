@@ -229,13 +229,17 @@
 
     .hero-title {
       font-family: var(--fh);
-      font-size: clamp(5.5rem, 18vw, 18rem);
+      /* Scales fluidly with viewport width; low floor keeps it inside
+         even the narrowest phones, cap prevents it getting huge on desktop. */
+      font-size: clamp(3rem, 17vw, 16rem);
       font-weight: 800;
       line-height: .88;
       letter-spacing: -.04em;
       color: var(--white);
       display: flex;
       align-items: baseline;
+      max-width: 100%;
+      white-space: nowrap;
       opacity: 0;
       transform: translateY(30px);
       animation: fadeUp .8s .5s forwards;
